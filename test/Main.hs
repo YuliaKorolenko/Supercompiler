@@ -6,4 +6,5 @@ import Driving.Spec
 
 main :: IO ()
 main = do
-    hspec spec
+    hspec spec 
+    hspec specDriving

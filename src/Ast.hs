@@ -24,6 +24,17 @@ data Expr
   | Case Expr [Branch] -- Case Expression 
   deriving (Show, Eq)
 
+
+data ProcessTree = Node Expr [ProcessTree]
+  deriving (Eq)
+
+instance Show ProcessTree where
+  show = showTree ""
+
+showTree :: String -> ProcessTree -> String
+showTree indent (Node expr children) =
+  indent ++ show expr ++ "\n" ++ concatMap (showTree (indent ++ "  ")) children
+
 data Definition = Definition String Expr
   deriving (Show, Eq)
 

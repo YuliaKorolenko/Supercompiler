@@ -18,3 +18,8 @@ decompose (Case e branches) = case decompose e of
     Left _ -> Right (CaseCtx Hole branches, RCase (e, branches))
     Right (ctx, redex) -> Right (CaseCtx ctx branches, redex)
 
+
+recompose :: Context -> Expr -> Expr
+recompose Hole e = e
+recompose (AppCtx ctx e2) e1 = App (recompose ctx e1) e2
+recompose (CaseCtx ctx branches) e = Case (recompose ctx e) branches
